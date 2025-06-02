@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import argparse
+from loguru import logger
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn import model_selection
@@ -391,7 +392,7 @@ def process_data(name):
     has_val = bool(info['val_path'])
     val_df = pd.DataFrame(columns=data_df.columns).astype(data_df.dtypes)   # by default (val_path is not provided), set val_Df to be empty
     if info['test_path']:
-
+        
         # if testing data is given
         test_path = info['test_path']
         
@@ -638,9 +639,10 @@ if __name__ == "__main__":
                 'shoppers_dcr',
                 'beijing_dcr',
                 'news_dcr', 
-                'diabetes_dcr'
+                'diabetes_dcr' # 有 bug
             ]:    
             process_data(name)
+            logger.success(f"Finished processing {name}")
 
         
 
